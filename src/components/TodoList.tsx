@@ -1,6 +1,7 @@
 import React, {ChangeEvent, FC, KeyboardEvent, useState} from 'react';
 import s from './Todolist.module.css'
 import {FilterType, TaskType, TodoListType} from "../App";
+import {AddItem} from "./AddItem";
 
 type TodoListPropsType = {
     tasks: Array<TaskType>
@@ -14,25 +15,14 @@ type TodoListPropsType = {
 
 export const TodoList: FC<TodoListPropsType> = ({todoList, ...props}) => {
 
-    const [error, setError] = useState<boolean>(false);
-    const [taskTitle, setTaskTitle] = useState<string>('');
-
-    const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
-        setTaskTitle(e.currentTarget.value);
-        error && setError(false);
-    }
-    const onClickAddTask = () => {
-        taskTitle.trim() !== "" ? props.addTask(todoList.id, taskTitle) : setError(true);
-        setTaskTitle("");
-    }
-    const onClickEnter = (e: KeyboardEvent<HTMLInputElement>) => {
-        e.key === 'Enter' && onClickAddTask();
-    }
     const onClickChangeFilter = (filter: FilterType) => {
         return function () {
             props.changeFilter(todoList.id, filter);
         }
     }
+    const removeTodoList = () => props.removeTodoList(todoList.id);
+
+    const addTask = (title: string) => props.addTask(todoList.id, title);
 
     const classActiveAll = todoList.filter === "All" ? s.active : '';
     const classActiveActive = todoList.filter === "Active" ? s.active : '';
@@ -59,13 +49,6 @@ export const TodoList: FC<TodoListPropsType> = ({todoList, ...props}) => {
         })
         : <span>write a task</span>;
 
-    const errorTitle = error ? "ERROR! Write a symbol!" : "write your task";
-    const classErrorTitle = error ? s.errorTitle : '';
-    const classErrorInput = error ? s.errorInput : s.input;
-
-    const removeTodoList = () => props.removeTodoList(todoList.id);
-
-
     return (
         <div className={s.container}>
             <div className={s.titleButton}>
@@ -75,15 +58,9 @@ export const TodoList: FC<TodoListPropsType> = ({todoList, ...props}) => {
                 >del
                 </button>
             </div>
-            <span className={classErrorTitle}>{errorTitle}</span>
-            <div>
-                <input className={classErrorInput}
-                       value={taskTitle}
-                       onChange={onChangeInput}
-                       onKeyPress={onClickEnter}
-                />
-                <button onClick={onClickAddTask}>+</button>
-            </div>
+            <AddItem
+                addItem={addTask}
+            />
             <ul className={s.tasksUl}>
                 {tasksListItems}
             </ul>

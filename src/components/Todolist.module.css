@@ -20,19 +20,6 @@
     margin-left: 10px;
 }
 
-.input {
-    outline: none;
-}
-
-.errorInput {
-    outline: none;
-    border-color: red;
-}
-
-.errorTitle {
-    color: red;
-}
-
 .active { /* FOR BUTTON */
     background-color: #c4ffc4;
     margin-right: 5px;

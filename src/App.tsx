@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import s from './App.module.css';
 import {TodoList} from "./components/TodoList";
 import {v1} from "uuid";
+import {AddItem} from "./components/AddItem";
 
 export type TaskType = {
     id: string
@@ -43,6 +44,17 @@ function App() {
     const changeFilter = (todoListId: string, filter: FilterType) => {
         setTodoList(todoLists.map(el => el.id === todoListId ? {...el, filter} : el));
     }
+    const addTodoList = (title: string) => {
+        const newTodoListId = v1()
+        const newTodoList: TodoListType = {id: newTodoListId, title, filter: "All"}
+        setTodoList([newTodoList, ...todoLists])
+        setTasks({...tasks, [newTodoListId]: []})
+    }
+    const removeTodoList = (todoListId: string) => {
+        setTodoList(todoLists.filter(el => el.id !== todoListId));
+        delete tasks[todoListId];
+    }
+
     const removeTask = (todoListId: string, taskId: string) => {
         setTasks({...tasks, [todoListId]: tasks[todoListId].filter(el => el.id !== taskId)});
     }
@@ -58,10 +70,6 @@ function App() {
         });
     }
 
-    const removeTodoList = (todoListId: string) => {
-        setTodoList(todoLists.filter(el => el.id !== todoListId));
-        delete tasks[todoListId];
-    }
 
     const todoListsComponents = todoLists.map(tl => {
 
@@ -95,6 +103,10 @@ function App() {
 
     return (
         <div className={s.app}>
+            <AddItem
+                classAddItem={s.inputContainer}
+                addItem={addTodoList}
+            />
             {todoListsComponents}
         </div>
     );
