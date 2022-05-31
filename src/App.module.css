@@ -1,0 +1,10 @@
+* {
+  /*margin: 0;*/
+  /*padding: 0;*/
+}
+
+.app {
+  display: flex;
+  margin-top: 3%;
+  margin-left: 5%;
+}
