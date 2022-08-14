@@ -1,0 +1,20 @@
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.title {
+    user-select: none;
+}
+
+.input {
+    max-width: 110px;
+    outline: none;
+}
+
+.button {
+    padding: 0;
+    margin-left: 5px;
+    width: 30px;
+    height: 20px;
+}

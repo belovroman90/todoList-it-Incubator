@@ -1,5 +1,5 @@
 import React, {ChangeEvent, DetailedHTMLProps, FC, InputHTMLAttributes, KeyboardEvent, useState} from 'react';
-import s from "./Input.module.css";
+import s from "./AddItem.module.css";
 
 type DefaultInputType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 type InputPropsType = DefaultInputType & {

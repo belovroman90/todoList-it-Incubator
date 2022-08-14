@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import s from './App.module.css';
-import {TodoList} from "./components/TodoList";
+import {TodoList} from "./components/TodoList/TodoList";
 import {v1} from "uuid";
-import {AddItem} from "./components/AddItem";
+import {AddItem} from "./components/AddItem/AddItem";
 
 export type TaskType = {
     id: string
@@ -41,8 +41,9 @@ function App() {
         ],
     });
 
-    const changeFilter = (todoListId: string, filter: FilterType) => {
-        setTodoList(todoLists.map(el => el.id === todoListId ? {...el, filter} : el));
+    const removeTodoList = (todoListId: string) => {
+        setTodoList(todoLists.filter(el => el.id !== todoListId));
+        delete tasks[todoListId];
     }
     const addTodoList = (title: string) => {
         const newTodoListId = v1()
@@ -50,9 +51,11 @@ function App() {
         setTodoList([newTodoList, ...todoLists])
         setTasks({...tasks, [newTodoListId]: []})
     }
-    const removeTodoList = (todoListId: string) => {
-        setTodoList(todoLists.filter(el => el.id !== todoListId));
-        delete tasks[todoListId];
+    const changeTodoListTitle = (todoListId: string, title: string) => {
+        setTodoList(todoLists.map(el => el.id === todoListId ? {...el, title} : el))
+    }
+    const changeFilter = (todoListId: string, filter: FilterType) => {
+        setTodoList(todoLists.map(el => el.id === todoListId ? {...el, filter} : el));
     }
 
     const removeTask = (todoListId: string, taskId: string) => {
@@ -62,6 +65,9 @@ function App() {
         const newTask = {id: v1(), title, isDone: false};
         setTasks({...tasks, [todoListId]: [newTask, ...tasks[todoListId]]});
     }
+    const changeTaskTitle = (todoListId: string, taskId: string, title: string) => {
+        setTasks( {...tasks, [todoListId]: tasks[todoListId].map(el => el.id === taskId ? {...el, title} : el)})
+    }
     const changeTaskStatus = (todoListId: string, taskId: string, isDone: boolean) => {
         setTasks({
             ...tasks,
@@ -69,7 +75,6 @@ function App() {
                 ? {...el, isDone} : el)
         });
     }
-
 
     const todoListsComponents = todoLists.map(tl => {
 
@@ -97,6 +102,8 @@ function App() {
                 addTask={addTask}
                 changeTaskStatus={changeTaskStatus}
                 removeTodoList={removeTodoList}
+                changeTaskTitle={changeTaskTitle}
+                changeTodoListTitle={changeTodoListTitle}
             />
         )
     })
