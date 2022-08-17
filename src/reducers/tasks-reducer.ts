@@ -14,7 +14,7 @@ export type ChangeTaskStatusAT = ReturnType<typeof ChangeTaskStatusAC>
 
 type ActionsType = RemoveTaskAT | AddTaskAT | ChangeTaskTitleAT | ChangeTaskStatusAT | AddTodoListAT | RemoveTodoListAT
 
-export const tasksReducer = (tasks: TasksType, action: ActionsType): TasksType => {
+export const tasksReducer = (tasks: TasksType = {}, action: ActionsType): TasksType => {
     switch (action.type) {
         case "REMOVE-TASK":
             return {...tasks, [action.todoListID]: tasks[action.todoListID].filter(t => action.taskID !== t.id)}
@@ -40,6 +40,7 @@ export const tasksReducer = (tasks: TasksType, action: ActionsType): TasksType =
                 } : t)
             }
         case "ADD-TODOLIST":
+
             return {
                 ...tasks, [action.todoListID]: []
             }
