@@ -1,6 +1,6 @@
 import React, {ChangeEvent, FC} from 'react';
 import s from './Todolist.module.css'
-import {FilterType, TaskType, TodoListType} from "../../App";
+import {FilterType, TaskType, TodoListType} from "../../AppWithReducers";
 import {AddItem} from "../AddItem/AddItem";
 import {EditableSpan} from "../EditableSpan/EditableSpan";
 

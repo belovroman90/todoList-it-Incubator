@@ -1,28 +1,26 @@
 import {v1} from 'uuid';
-import {FilterType, TodoListsType} from "../App";
+import {FilterType, TodoListsType} from "../AppWithReducers";
 import {
-    AddTodoListAC,
-    ChangeFilterAT,
-    ChangeTodoListTitleAT,
+    AddTodoListAC, ChangeFilterAC,
+    ChangeTodoListTitleAC, RemoveTodoListAC,
     RemoveTodoListAT,
     todoListsReducer
 } from "./todolists-reducer";
 
-test('correct todoList should be removed', () => {
-    let todoListID1 = v1()
-    let todoListID2 = v1()
+let todoListID1: string
+let todoListID2: string
+let startState: TodoListsType
 
-    const startState: TodoListsType = [
+beforeEach(() => {
+    todoListID1 = v1()
+    todoListID2 = v1()
+    startState = [
         {id: todoListID1, title: "What to learn", filter: "All"},
-        {id: todoListID2, title: "What to buy", filter: "All"},
+        {id: todoListID2, title: "What to buy", filter: "All"}
     ]
+})
 
-    function RemoveTodoListAC(id: string): RemoveTodoListAT {
-        return {
-            type: 'REMOVE-TODOLIST',
-            todoListID: id,
-        }
-    }
+test('correct todoList should be removed', () => {
 
     const endState = todoListsReducer(startState, RemoveTodoListAC(todoListID1))
 
@@ -31,23 +29,8 @@ test('correct todoList should be removed', () => {
 })
 
 test('correct todoList should be added', () => {
-    let todoListID1 = v1()
-    let todoListID2 = v1()
 
     let newTodoListTitle = "New TodoList"
-
-    const startState: TodoListsType = [
-        {id: todoListID1, title: "What to learn", filter: "All"},
-        {id: todoListID2, title: "What to buy", filter: "All"},
-    ]
-
-    // function AddTodoListAC(title: string): AddTodoListAT {
-    //     return {
-    //         type: "ADD-TODOLIST",
-    //         todoListID: 'id',
-    //         title,
-    //     }
-    // }
 
     const endState = todoListsReducer(startState, AddTodoListAC(newTodoListTitle))
 
@@ -56,23 +39,8 @@ test('correct todoList should be added', () => {
 })
 
 test('correct todoList should change its name', () => {
-    let todoListID1 = v1()
-    let todoListID2 = v1()
 
     let newTodoListTitle = "New TodoList"
-
-    const startState: TodoListsType = [
-        {id: todoListID1, title: "What to learn", filter: "All"},
-        {id: todoListID2, title: "What to buy", filter: "All"},
-    ]
-
-    function ChangeTodoListTitleAC(id: string, title: string): ChangeTodoListTitleAT {
-        return {
-            type: 'CHANGE-TODOLIST-TITLE',
-            todoListID: id,
-            title,
-        }
-    }
 
     const endState = todoListsReducer(startState, ChangeTodoListTitleAC(todoListID2, newTodoListTitle))
 
@@ -81,23 +49,8 @@ test('correct todoList should change its name', () => {
 })
 
 test('correct filter of todolist should be changed', () => {
-    let todoListID1 = v1()
-    let todoListID2 = v1()
 
     let newFilter: FilterType = "Completed"
-
-    const startState: TodoListsType = [
-        {id: todoListID1, title: "What to learn", filter: "All"},
-        {id: todoListID2, title: "What to buy", filter: "All"},
-    ]
-
-    function ChangeFilterAC(id: string, filter: FilterType): ChangeFilterAT {
-        return {
-            type: 'CHANGE-TODOLIST-FILTER',
-            todoListID: id,
-            filter,
-        }
-    }
 
     const endState = todoListsReducer(startState, ChangeFilterAC(todoListID2, newFilter))
 

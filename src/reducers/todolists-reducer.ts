@@ -1,4 +1,4 @@
-import {FilterType, TodoListsType} from "../App";
+import {FilterType, TodoListsType, TodoListType} from "../AppWithReducers";
 import {v1} from "uuid";
 
 const REMOVE_TODOLIST = 'REMOVE-TODOLIST'
@@ -15,13 +15,13 @@ type ActionType = RemoveTodoListAT | AddTodoListAT | ChangeTodoListTitleAT | Cha
 
 export const todoListsReducer = (todoLists: TodoListsType, action: ActionType): TodoListsType => {
     switch (action.type) {
-        case "REMOVE-TODOLIST":
+        case REMOVE_TODOLIST:
             return todoLists.filter(tl => action.todoListID !== tl.id)
-        case "ADD-TODOLIST":
+        case ADD_TODOLIST:
             return [...todoLists, {id: action.todoListID, title: action.title, filter: "All"}]
-        case "CHANGE-TODOLIST-TITLE":
+        case CHANGE_TODOLIST_TITLE:
             return todoLists.map(tl => tl.id === action.todoListID ? {...tl, title: action.title} : tl)
-        case "CHANGE-TODOLIST-FILTER":
+        case CHANGE_TODOLIST_FILTER:
             return todoLists.map(tl => tl.id === action.todoListID ? {...tl, filter: action.filter} : tl)
         default:
             return todoLists
