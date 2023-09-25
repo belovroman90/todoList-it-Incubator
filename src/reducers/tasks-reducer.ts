@@ -40,7 +40,6 @@ export const tasksReducer = (tasks: TasksType = {}, action: ActionsType): TasksT
                 } : t)
             }
         case "ADD-TODOLIST":
-
             return {
                 ...tasks, [action.todoListID]: []
             }

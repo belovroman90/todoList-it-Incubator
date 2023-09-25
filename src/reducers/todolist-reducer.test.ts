@@ -3,13 +3,12 @@ import {FilterType, TodoListsType} from "../AppWithReducers";
 import {
     AddTodoListAC, ChangeFilterAC,
     ChangeTodoListTitleAC, RemoveTodoListAC,
-    RemoveTodoListAT,
     todoListsReducer
 } from "./todolists-reducer";
 
 let todoListID1: string
 let todoListID2: string
-let startState: TodoListsType
+let startState: TodoListsType = []
 
 beforeEach(() => {
     todoListID1 = v1()

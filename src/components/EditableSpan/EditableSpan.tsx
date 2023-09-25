@@ -7,7 +7,7 @@ type EditableSpanProps = {
     classTodoList?: string
 }
 
-export const EditableSpan: FC<EditableSpanProps> = ({classTodoList, title, ...props}) => {
+const EditableSpan: FC<EditableSpanProps> = ({classTodoList, title, ...props}) => {
 
     const [titleInput, setTitleInput] = useState(title)
     const [editMode, setEditMode] = useState(false)
@@ -45,5 +45,7 @@ export const EditableSpan: FC<EditableSpanProps> = ({classTodoList, title, ...pr
                 className={classTitle}
                 onDoubleClick={onEditMode}
             >{title}</span>
-    );
-};
+    )
+}
+
+export const EditableSpanMemo = React.memo(EditableSpan)

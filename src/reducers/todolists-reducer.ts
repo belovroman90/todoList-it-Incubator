@@ -1,4 +1,4 @@
-import {FilterType, TodoListsType, TodoListType} from "../AppWithReducers";
+import {FilterType, TodoListsType} from "../AppWithReducers";
 import {v1} from "uuid";
 
 const REMOVE_TODOLIST = 'REMOVE-TODOLIST'

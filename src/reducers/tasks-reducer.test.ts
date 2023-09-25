@@ -3,7 +3,7 @@ import {AddTaskAC, AddTaskAT, ChangeTaskStatusAC, RemoveTaskAC, tasksReducer} fr
 import {AddTodoListAC, RemoveTodoListAC, todoListsReducer} from "./todolists-reducer";
 import {v1} from "uuid";
 
-let startState: TasksType
+let startState: TasksType = {}
 let todolistId1: string
 let todolistId2: string
 

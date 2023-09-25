@@ -37,19 +37,3 @@
     padding: 0;
     margin: 20px auto;
 }
-
-.tasksLi {
-    display: flex;
-    justify-content: space-between;
-}
-
-.taskChecked {
-    display: flex;
-    justify-content: space-between;
-    opacity: 0.5;
-}
-
-.checkTitle {
-    margin-right: 15px;
-    display: flex;
-}

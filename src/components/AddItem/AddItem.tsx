@@ -1,13 +1,14 @@
 import React, {ChangeEvent, DetailedHTMLProps, FC, InputHTMLAttributes, KeyboardEvent, useState} from 'react';
 import s from "./AddItem.module.css";
 
-type DefaultInputType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+type DefaultInputType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+
 type InputPropsType = DefaultInputType & {
     addItem?: (title: string) => void
     classAddItem?: string
 }
 
-export const AddItem: FC<InputPropsType> = ({className, classAddItem, addItem, ...props}) => {
+const AddItem: FC<InputPropsType> = ({className, classAddItem, addItem, ...props}) => {
 
     const [title, setTitle] = useState<string>('');
     const [error, setError] = useState<boolean>(false);
@@ -45,4 +46,6 @@ export const AddItem: FC<InputPropsType> = ({className, classAddItem, addItem, .
             </div>
         </div>
     );
-};
+}
+
+export const AddItemMemo = React.memo(AddItem)
